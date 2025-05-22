@@ -14,6 +14,11 @@ class Application(Gtk.ApplicationWindow):
         self.headerBar = Gtk.HeaderBar()
         self.set_titlebar(self.headerBar)
 
+        # Open File Button
+        openFileButton = Gtk.Button(label = "Open File")
+        openFileButton.connect("clicked", self.on_open_file_button)
+        self.headerBar.pack_start(openFileButton)
+
         # Box Layout
         box = Gtk.Box(orientation = Gtk.Orientation.VERTICAL, spacing = 12)
         self.set_child(box)
@@ -35,6 +40,15 @@ class Application(Gtk.ApplicationWindow):
         self.textBuffer.set_text("Hello, world")
 
         scrolledWindow.set_child(textView)
+
+    # Header Bar Button
+    def on_open_file_button(self, _widget):
+        self.fileDialog = Gtk.FileDialog()
+        self.fileDialog.open(self, None, self.on_file_opened)
+
+    def on_file_opened(self, dialog, result):
+        file = dialog.open_finish(result)
+        print("Arquivo selecionado:", file.get_path())
 
 def on_activate(app):
     win = Application(application = app)
