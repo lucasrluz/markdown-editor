@@ -18,6 +18,24 @@ class Application(Gtk.ApplicationWindow):
         box = Gtk.Box(orientation = Gtk.Orientation.VERTICAL, spacing = 12)
         self.set_child(box)
 
+        # Scrolled Window, Text View
+        scrolledWindow = Gtk.ScrolledWindow()
+        scrolledWindow.props.hexpand = True
+        scrolledWindow.props.vexpand = True
+        box.append(scrolledWindow)
+
+        textView = Gtk.TextView()
+        textView.set_wrap_mode(Gtk.WrapMode.WORD)
+        textView.set_top_margin(30)
+        textView.set_left_margin(60)
+        textView.set_right_margin(60)
+        textView.set_bottom_margin(30)
+
+        self.textBuffer = textView.get_buffer()
+        self.textBuffer.set_text("Hello, world")
+
+        scrolledWindow.set_child(textView)
+
 def on_activate(app):
     win = Application(application = app)
     win.present()
