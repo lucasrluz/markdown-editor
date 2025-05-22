@@ -8,6 +8,16 @@ class Application(Gtk.ApplicationWindow):
     def __init__(self, **kargs):
         super().__init__(**kargs, title = "Markdown Editor")
 
+        self.set_default_size(800, 600)
+
+        # Header Bar Layout
+        self.headerBar = Gtk.HeaderBar()
+        self.set_titlebar(self.headerBar)
+
+        # Box Layout
+        box = Gtk.Box(orientation = Gtk.Orientation.VERTICAL, spacing = 12)
+        self.set_child(box)
+
 def on_activate(app):
     win = Application(application = app)
     win.present()
