@@ -48,7 +48,10 @@ class Application(Gtk.ApplicationWindow):
 
     def on_file_opened(self, dialog, result):
         file = dialog.open_finish(result)
-        print("Arquivo selecionado:", file.get_path())
+
+        with open(file.get_path(), "r", encoding="utf-8") as f:
+            fileContent = f.read()
+            self.textBuffer.set_text(fileContent)
 
 def on_activate(app):
     win = Application(application = app)
